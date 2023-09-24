@@ -16,15 +16,13 @@ def work():
 
             full_article = browser.get_element_attribute(i,'href')
             browser.go_to(full_article)
-            print('hello')
-            time.sleep(3)
-            browser.go_to('https://ceotab.com/category/entertainment/')
-            print('feri')
+            print(full_article)
+            # time.sleep(3)
+            # browser.go_to('https://ceotab.com/category/entertainment/')
 
         browser.close_all_browsers()
     except:
         pass
-
 
 @task
 def minimal_task():
