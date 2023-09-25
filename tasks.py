@@ -12,7 +12,6 @@ def work():
     try:
         browser.open_available_browser(
             "https://ceotab.com/category/entertainment/", maximized=True)
-        time.sleep(4)
 
         title_el_xpath = '//header[@class="entry-header"]//a'
         image_xpath = '//div[@class="featured-image"]//img'
@@ -23,19 +22,28 @@ def work():
 
         links = []
         try:
-            for i in range(17):
+            does_Prev_xpath_exist = True
+            while does_Prev_xpath_exist:
+                try:
+                    browser.wait_until_element_is_visible(
+                        '//div[@id="content"]', timeout=30)
+                except:
+                    raise
+
                 try:
                     title_els = browser.find_elements(title_el_xpath)
                     for i in title_els:
                         full_article = browser.get_element_attribute(i, 'href')
                         links.append(full_article)
-                    browser.click_element_when_clickable(previous_xpath)
 
-                except:
-                    title_els = browser.find_elements(title_el_xpath)
-                    for i in title_els:
-                        full_article = browser.get_element_attribute(i, 'href')
-                        links.append(full_article)
+                except Exception as e:
+                    print(e)
+
+                # previous button exist
+                does_Prev_xpath_exist = browser.is_element_visible(
+                    previous_xpath)
+                if (does_Prev_xpath_exist):
+                    browser.click_element_when_clickable(previous_xpath)
 
             all_data = []
             for i in links:
