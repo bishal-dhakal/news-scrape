@@ -57,17 +57,14 @@ def work():
 
                     BuiltIn().log_to_console(data)
 
-
                 except Exception as e:
                     print(e)
 
-            
             df = pd.DataFrame(all_data)
 
             # Specify the CSV file name and write the DataFrame to it
             csv_filename = 'sample.csv'
             df.to_csv(csv_filename, index=False)
-           
 
         except:
             pass
